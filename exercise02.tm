@@ -98,10 +98,6 @@
       <|unfolded-io>
         4
       </unfolded-io>
-
-      <\input|Scheme] >
-        \;
-      </input>
     </session>
   </exercise>
 
@@ -133,15 +129,15 @@
 
       <\session|scheme|default>
         <\unfolded-io|Scheme] >
-          (define (sum_of_squares x y)
+          (define (ex3-sum_of_squares x y)
 
           \ \ (+ (* x x) (* y y)))
         <|unfolded-io>
-          sum_of_squares
+          ex3-sum_of_squares
         </unfolded-io>
 
         <\unfolded-io|Scheme] >
-          (define (larger x y z)
+          (define (ex3-larger x y z)
 
           \ \ (cond ((and (\<gtr\> y x) (\<gtr\> z x)) (values y z))
 
@@ -149,23 +145,23 @@
 
           \ \ \ \ \ \ \ \ ((and (\<gtr\> x z) (\<gtr\> y z)) (values x y))))
         <|unfolded-io>
-          larger
+          ex3-larger
         </unfolded-io>
 
         <\unfolded-io|Scheme] >
-          (sum_of_squares (larger 1 2 3))
+          (ex3-sum_of_squares (ex3-larger 1 2 3))
         <|unfolded-io>
           13
         </unfolded-io>
 
         <\unfolded-io|Scheme] >
-          (sum_of_squares (larger 2 1 3))
+          (ex3-sum_of_squares (ex3-larger 2 1 3))
         <|unfolded-io>
           13
         </unfolded-io>
 
         <\unfolded-io|Scheme] >
-          (sum_of_squares (larger 2 3 1))
+          (ex3-sum_of_squares (ex3-larger 2 3 1))
         <|unfolded-io>
           13
         </unfolded-io>
@@ -239,7 +235,7 @@
 
         <\indent>
           <\itemize>
-            <item>infinite recursion
+            <item>evaluation: infinite recursion
 
             <item>When calling <scm|(test 0 (p))>, it evaluates <scm|(p)>,
             which leads to infinite recursion
@@ -250,7 +246,7 @@
 
         <\indent>
           <\itemize>
-            <item>0
+            <item>evaluation: 0
 
             <item>When calling <scm|(test 0 (p))>, expand to\ 
 
@@ -331,66 +327,62 @@
 
         <\session|scheme|default>
           <\unfolded-io|Scheme] >
-            (define (square x) (* x x))
+            (define (ex6-square x) (* x x))
           <|unfolded-io>
-            square
+            ex6-square
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (define (average x y)
+            (define (ex6-average x y)
 
             \ \ (/ (+ x y) 2))
           <|unfolded-io>
-            average
+            ex6-average
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (define (improve guess x)
+            (define (ex6-improve guess x)
 
-            \ \ (average guess (/ x guess)))
+            \ \ (ex6-average guess (/ x guess)))
           <|unfolded-io>
-            improve
+            ex6-improve
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (define (good-enough? guess x)
+            (define (ex6-good-enough? guess x)
 
-            \ \ (\<less\> (abs (- (square guess) x)) 0.001))
+            \ \ (\<less\> (abs (- (ex6-square guess) x)) 0.001))
           <|unfolded-io>
-            good-enough?
+            ex6-good-enough?
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (define (sqrt-iter guess x)
+            (define (ex6-sqrt-iter guess x)
 
-            \ \ (if (good-enough? guess x)
+            \ \ (if (ex6-good-enough? guess x)
 
             \ \ \ \ \ \ guess
 
-            \ \ \ \ \ \ (sqrt-iter (improve guess x)
+            \ \ \ \ \ \ (ex6-sqrt-iter (ex6-improve guess x)
 
             \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x)))
           <|unfolded-io>
-            sqrt-iter
+            ex6-sqrt-iter
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (define (sqrt x)
+            (define (ex6-sqrt x)
 
-            \ \ (sqrt-iter 1.0 x))
+            \ \ (ex6-sqrt-iter 1.0 x))
           <|unfolded-io>
-            sqrt
+            ex6-sqrt
           </unfolded-io>
 
           <\unfolded-io|Scheme] >
-            (sqrt 9)
+            (ex6-sqrt 9)
           <|unfolded-io>
             3.00009155413138
           </unfolded-io>
-
-          <\input|Scheme] >
-            \;
-          </input>
 
           \;
 
@@ -400,40 +392,42 @@
 
           <\session|scheme|default>
             <\unfolded-io|Scheme] >
-              (define (new-if predicate then-clause else-clause)
+              (define (ex6-new-if predicate then-clause else-clause)
 
               \ \ (cond (predicate then-clause)
 
               \ \ \ \ \ \ \ \ (else else-clause)))
             <|unfolded-io>
-              new-if
+              ex6-new-if
             </unfolded-io>
 
             <\unfolded-io|Scheme] >
-              (define (new-sqrt-iter guess x)
+              (define (ex6-new-sqrt-iter guess x)
 
-              \ \ (new-if (good-enough? guess x)
+              \ \ (ex6-new-if (ex6-good-enough? guess x)
 
               \ \ \ \ \ \ \ \ \ \ guess
 
-              \ \ \ \ \ \ \ \ \ \ (new-sqrt-iter (improve guess x)
+              \ \ \ \ \ \ \ \ \ \ (ex6-new-sqrt-iter (ex6-improve guess x)
 
               \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x)))
             <|unfolded-io>
-              new-sqrt-iter
+              ex6-new-sqrt-iter
             </unfolded-io>
 
             <\unfolded-io|Scheme] >
-              (define (new-sqrt x)
+              (define (ex6-new-sqrt x)
 
-              \ \ (new-sqrt-iter 1.0 x))
+              \ \ (ex6-new-sqrt-iter 1.0 x))
             <|unfolded-io>
-              new-sqrt
+              ex6-new-sqrt
             </unfolded-io>
 
-            <\input|Scheme] >
-              ;(new-sqrt 9)
-            </input>
+            <\unfolded-io|Scheme] >
+              ;(ex6-new-sqrt 9)
+            <|unfolded-io>
+              #\<less\>eof\<gtr\>
+            </unfolded-io>
           </session>
         </session>
 
@@ -475,11 +469,182 @@
       better for small and large numbers?
     </exercise>
   <|unfolded>
+    <\solution*>
+      \;
+    </solution*>
+
+    <\itemize>
+      <item>Showing how the test fails for small and large numbers.
+    </itemize>
+
     <\session|scheme|default>
-      <\input|Scheme] >
+      <\unfolded-io|Scheme] >
+        (ex6-square (ex6-sqrt 1.123456789e-12))
+      <|unfolded-io>
+        9.765625007482396e-4
+      </unfolded-io>
+
+      <\session|scheme|default>
+        <\unfolded-io|Scheme] >
+          (ex6-square (sqrt 1.123456789e-12))
+        <|unfolded-io>
+          1.1234567889999999e-12
+        </unfolded-io>
+      </session>
+
+      <\unfolded-io|Scheme] >
+        ;(ex6-square (ex6-sqrt 9.98765432198e+12))
+
+        ; Busy
+
+        ; Can't compute
+      <|unfolded-io>
+        #\<less\>eof\<gtr\>
+      </unfolded-io>
+
+      <\unfolded-io|Scheme] >
+        (ex6-square (sqrt 9.98765432198e+12))
+      <|unfolded-io>
+        9987654321980.0
+      </unfolded-io>
+
+      \;
+
+      <\itemize>
+        <item>Improved <scm|good-enough?>
+      </itemize>
+
+      <\session|scheme|default>
+        <\unfolded-io|Scheme] >
+          (define (ex7-square x) (* x x))
+        <|unfolded-io>
+          ex7-square
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (define (ex7-average x y) (/ (+ x y) 2))
+        <|unfolded-io>
+          ex7-average
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (define (ex7-improve guess x)
+
+          \ \ (ex7-average guess (/ x guess)))
+        <|unfolded-io>
+          ex7-improve
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (define (ex7-good-enough? pre-guess guess)
+
+          \ \ (\<less\> (/ (abs (- pre-guess guess)) guess) 0.001))
+        <|unfolded-io>
+          ex7-good-enough?
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (define (ex7-sqrt-iter pre-guess guess x)
+
+          \ \ (if (ex7-good-enough? pre-guess guess)
+
+          \ \ \ \ \ \ guess
+
+          \ \ \ \ \ \ (ex7-sqrt-iter guess
+
+          \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ex7-improve guess x)
+
+          \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x)))
+        <|unfolded-io>
+          ex7-sqrt-iter
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (define (ex7-sqrt x)
+
+          \ \ (ex7-sqrt-iter 0.0 1.0 x))
+        <|unfolded-io>
+          ex7-sqrt
+        </unfolded-io>
+
+        <\session|scheme|default>
+          <\unfolded-io|Scheme] >
+            (ex6-square (ex7-sqrt 1.123456789e-12))
+          <|unfolded-io>
+            1.1234568740513339e-12
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (ex6-square (sqrt 1.123456789e-12))
+          <|unfolded-io>
+            1.1234567889999999e-12
+          </unfolded-io>
+        </session>
+
+        <\unfolded-io|Scheme] >
+          (ex6-square (ex7-sqrt 9.98765432198e+12))
+        <|unfolded-io>
+          9987654345933.438
+        </unfolded-io>
+
+        <\unfolded-io|Scheme] >
+          (ex6-square (sqrt 9.98765432198e+12))
+        <|unfolded-io>
+          9987654321980.0
+        </unfolded-io>
+
         \;
-      </input>
+
+        <\itemize>
+          <item>Conclusion
+        </itemize>
+
+        \;
+
+        Compare with standard library sqrt
+      </session>
+
+      <block|<tformat|<table|<row|<cell|Value>|<cell|<scm|sqrt>>|<cell|<scm|ex6-sqrt>>|<cell|<scm|ex7-sqrt>>>|<row|<cell|1.123456789e-12>|<cell|1.1234567889999999e-12>|<cell|9.765625007482396e-4>|<cell|1.1234568740513339e-12>>|<row|<cell|9.98765432198e+12>|<cell|9987654321980.0>|<cell|Busy
+      (Can't compute)>|<cell|9987654345933.438>>>>>
     </session>
+
+    \;
+
+    The gap with the standard library sqrt
+
+    <\session|scheme|default>
+      <\unfolded-io|Scheme] >
+        (abs (- 1.123456789e-12 1.1234567889999999e-12))
+      <|unfolded-io>
+        0.0
+      </unfolded-io>
+
+      <\unfolded-io|Scheme] >
+        (abs (- 1.123456789e-12 9.765625007482396e-4))
+      <|unfolded-io>
+        9.765624996247828e-4
+      </unfolded-io>
+
+      <\unfolded-io|Scheme] >
+        (abs (- 1.123456789e-12 1.1234568740513339e-12))
+      <|unfolded-io>
+        8.50513339973876e-20
+      </unfolded-io>
+
+      <\unfolded-io|Scheme] >
+        (abs (- 9.98765432198e+12 9987654321980.0))
+      <|unfolded-io>
+        0.0
+      </unfolded-io>
+
+      <\unfolded-io|Scheme] >
+        (abs (- 9.98765432198e+12 9987654345933.438))
+      <|unfolded-io>
+        23953.4375
+      </unfolded-io>
+    </session>
+
+    <block|<tformat|<table|<row|<cell|Value>|<cell|<scm|sqrt>>|<cell|<scm|ex6-sqrt>>|<cell|<scm|ex7-sqrt>>>|<row|<cell|1.123456789e-12>|<cell|0.0>|<cell|9.765624996247828e-4>|<cell|8.50513339973876e-20>>|<row|<cell|9.98765432198e+12>|<cell|0.0>|<cell|FIN>|<cell|23953.4375>>>>>
   </unfolded>
 
   <\exercise>
@@ -490,6 +655,81 @@
     square-root procedure. (In Section 1.3.4 we will see how to implement
     Newton's method in general as an abstraction of these square-root and
     cube-root procedures.)
+
+    <\unfolded>
+      \;
+    <|unfolded>
+      <\solution*>
+        \;
+
+        <\session|scheme|default>
+          <\unfolded-io|Scheme] >
+            (define (ex8-square x) (* x x))
+          <|unfolded-io>
+            ex8-square
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (define (ex8-improve x y)
+
+            \ \ (/ (+ (/ x (ex8-square y)) (* 2 y)) 3))
+          <|unfolded-io>
+            ex8-improve
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (define (ex8-good-enough? pre-guess guess)
+
+            \ \ (\<less\> (/ (abs (- pre-guess guess)) guess) 0.001))
+          <|unfolded-io>
+            ex8-good-enough?
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (define (ex8-cube-root-iter pre-guess guess x)
+
+            \ \ (if (ex8-good-enough? pre-guess guess)
+
+            \ \ \ \ \ \ guess
+
+            \ \ \ \ \ \ (ex8-cube-root-iter guess
+
+            \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ex8-improve
+            x guess)
+
+            \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x)))
+          <|unfolded-io>
+            ex8-cube-root-iter
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (define (ex8-cube-root x)
+
+            \ \ (ex8-cube-root-iter 0.0 1.0 x))
+          <|unfolded-io>
+            ex8-cube-root
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (ex8-cube-root 27)
+          <|unfolded-io>
+            3.0000005410641766
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (ex8-cube-root 1.123456789e-12)
+          <|unfolded-io>
+            1.0395661470382135e-4
+          </unfolded-io>
+
+          <\unfolded-io|Scheme] >
+            (ex8-cube-root 9.98765432198e+12)
+          <|unfolded-io>
+            2.153547730824831e+4
+          </unfolded-io>
+        </session>
+      </solution*>
+    </unfolded>
   </exercise>
 </body>
 
@@ -502,7 +742,8 @@
 
 <\references>
   <\collection>
-    <associate|ex1.5|<tuple|5|1>>
-    <associate|ex1.7|<tuple|7|2>>
+    <associate|auto-1|<tuple|1|?>>
+    <associate|ex1.5|<tuple|5|2>>
+    <associate|ex1.7|<tuple|7|5>>
   </collection>
 </references>
